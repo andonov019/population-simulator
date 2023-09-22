@@ -1,4 +1,4 @@
-import { CreatureController } from "../controller/creature.controller";
+import { CreatureController } from "../controller/creature.controller.js";
 export class Population {
   _creatures = new Map();
 
@@ -34,15 +34,13 @@ export class Population {
       gridMin: this._gridMin,
       gridMax: this._gridMax,
     });
-    this._creatures.set(newCreature.id, newCreature);
+    this._creatures.set(newCreature.creature.id, newCreature);
   }
 
   // populate our Creatures
   populate(populationNumber) {
     for (let i = 0; i < populationNumber; i++) {
-      if (selectObject.options[i].selected) {
-        this.addCreature();
-      }
+      this.addCreature();
     }
   }
 }
