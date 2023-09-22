@@ -35,16 +35,16 @@ export class CreatureController {
 
   // update the creature's movement preferences
   updateDirection() {
-    if (this._creature.xPos === this.gridMax) {
+    if (this._creature.xPos >= this.gridMax/3) {
       this._creature.xPull = -1;
     }
-    if (this._creature.xPos === this.gridMin) {
+    if (this._creature.xPos <= this.gridMin) {
       this._creature.xPull = 1;
     }
-    if (this._creature.yPos === this.gridMax) {
+    if (this._creature.yPos >= this.gridMax/3) {
       this._creature.yPull = -1;
     }
-    if (this._creature.yPos === this.gridMin) {
+    if (this._creature.yPos <= this.gridMin) {
       this._creature.yPull = 1;
     }
 

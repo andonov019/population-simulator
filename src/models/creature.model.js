@@ -150,8 +150,8 @@ const colors = [
 export class Creature {
   constructor({ parent, gridMin, gridMax }) {
     this._id = Math.random();
-    this._xPullChange = this.getRandom(0, 1, 2);
-    this._yPullChange = this.getRandom(0, 1, 2);
+    this._xPullChange = this.getRandom(-1, 1, 2);
+    this._yPullChange = this.getRandom(-1, 1, 2);
     this._parent = parent;
     this._age = 0;
     this._speed = this.getRandom(1, 0.25 * gridMax, 2);
