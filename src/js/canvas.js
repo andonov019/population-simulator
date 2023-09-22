@@ -28,7 +28,7 @@ export class Canvas {
       console.log(creature.creature.xPos + ", " + creature.creature.yPos);
       ctx.beginPath();
       ctx.arc(x, y, 15, 0, 2 * Math.PI, false);
-      ctx.fillStyle = "#33ff00";
+      ctx.fillStyle = creature.creature.color;
       ctx.fill();
       ctx.lineWidth = 2;
       ctx.strokeStyle = "#003300";
