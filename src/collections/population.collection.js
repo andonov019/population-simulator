@@ -33,6 +33,7 @@ export class Population {
       parent: parent,
       gridMin: this._gridMin,
       gridMax: this._gridMax,
+      population: this,
     });
     this._creatures.set(newCreature.creature.id, newCreature);
   }

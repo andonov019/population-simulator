@@ -1,12 +1,8 @@
-import { v4 as uuidv4 } from "uuid";
-import randomName from "random-name";
-
 export class Creature {
   constructor({ parent, gridMin, gridMax }) {
-    this._id = uuidv4();
+    this._id = Math.random();
     this._xPullChange = this.getRandom(0, 1, 2);
     this._yPullChange = this.getRandom(0, 1, 2);
-    this._name = randomName.first();
     this._parent = parent;
     this._age = 0;
     this._speed = this.getRandom(1, 0.25 * gridMax, 2);
@@ -36,11 +32,6 @@ export class Creature {
   // yPullChange
   get yPullChange() {
     return this._yPullChange;
-  }
-
-  // name
-  get name() {
-    return this._name;
   }
 
   // parent

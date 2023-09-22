@@ -1,8 +1,9 @@
 import { Creature } from "../models/creature.model.js";
 
 export class CreatureController {
-  constructor({ parent = [null, null], gridMin, gridMax }) {
+  constructor({ parent = [null, null], gridMin, gridMax, population }) {
     this._creature = new Creature({ parent, gridMin, gridMax });
+    this._population = population;
   }
 
   // creature
@@ -80,7 +81,7 @@ export class CreatureController {
 
   // Fertilize location, possibly spawn child
   async setPregnancyTimer({ markerId, newValue }) {
-    const marker = population.getCreature(markerId);
+    const marker = this._population.getCreature(markerId);
     marker._creature.pregnancyTimer = newValue;
   }
 
@@ -91,7 +92,7 @@ export class CreatureController {
 
     if (isMarked) {
       const markerId = await canvas.getMarkerId({ xPos, yPos });
-      await population.addCreature([creatureId, markerId]);
+      await this._population.addCreature([creatureId, markerId]);
 
       this._creature.pregnancyTimer = 10;
       await this.setPregnancyTimer({ markerId, newValue: 10 });
