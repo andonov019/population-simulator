@@ -2,28 +2,24 @@ import { v4 as uuidv4 } from "uuid";
 import randomName from "random-name";
 
 export class Creature {
-  constructor({
-    parrent,
-    age,
-    speed,
-    xPull,
-    yPull,
-    xPos,
-    yPos,
-    pregnencyTimer,
-  }) {
+  constructor({ parrent, age, gridMin, gridMax, pregnencyTimer }) {
     this._id = uuidv4();
-    this._xPullChange = Math.random().toFixed(2);
-    this._yPullChange = Math.random().toFixed(2);
+    this._xPullChange = getRandom(0, 1, 2);
+    this._yPullChange = getRandom(0, 1, 2);
     this._name = randomName.first();
     this._parrent = parrent;
     this._age = age;
-    this._speed = speed;
-    this._xPull = xPull;
-    this._yPull = yPull;
-    this._xPos = xPos;
-    this._yPos = yPos;
+    this._speed = getRandom(0, 1, 2);
+    this._xPull = getRandom(-1, 1, 2);
+    this._yPull = getRandom(-1, 1, 2);
+    this._xPos = getRandom(gridMin, gridMax, 0);
+    this._yPos = getRandom(gridMin, gridMax, 0);
     this._pregnencyTimer = pregnencyTimer;
+  }
+
+  getRandom(min, max, decimal) {
+    const random = Math.random() * (max - min) + min;
+    return random.toFixed(decimal);
   }
 
   // id
