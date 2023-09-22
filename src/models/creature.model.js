@@ -2,7 +2,16 @@ import { v4 as uuidv4 } from "uuid";
 import randomName from "random-name";
 
 export class Creature {
-  constructor(parrent, age, speed, xPull, yPull, xPos, yPos, pregnencyTimer) {
+  constructor({
+    parrent,
+    age,
+    speed,
+    xPull,
+    yPull,
+    xPos,
+    yPos,
+    pregnencyTimer,
+  }) {
     this._id = uuidv4();
     this._xPullChange = Math.random().toFixed(2);
     this._yPullChange = Math.random().toFixed(2);
