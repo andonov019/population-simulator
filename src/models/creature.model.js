@@ -1,6 +1,6 @@
 import { colors } from "../js/colors.js";
 export class Creature {
-  constructor({ parent, gridMin, gridMax }) {
+  constructor({ parent, gridMin, gridMax, xPos, yPos }) {
     this._id = Math.random();
     this._xPullChange = this.getRandom(0, 1, 2);
     this._yPullChange = this.getRandom(0, 1, 2);
@@ -9,8 +9,8 @@ export class Creature {
     this._speed = this.getRandom(1, 0.25 * gridMax, 2);
     this._xPull = this.getRandom(-1, 1, 2);
     this._yPull = this.getRandom(-1, 1, 2);
-    this._xPos = this.getRandom(gridMin, gridMax, 0);
-    this._yPos = this.getRandom(gridMin, gridMax, 0);
+    this._xPos = xPos || this.getRandom(gridMin, gridMax, 0);
+    this._yPos = yPos || this.getRandom(gridMin, gridMax, 0);
     this._pregnancyTimer = 10;
     this._isAlive = true;
     this._color = colors[Math.floor(Math.random() * colors.length)];
