@@ -1,6 +1,25 @@
 export class Canvas {
+
   constructor(size, boxes) {
     this.renderCanvas(size, boxes);
+
+    this.fertilityGrid = new Array(boxes);
+    for (var i = 0; i < this.fertilityGrid.length; i++) {
+      this.fertilityGrid[i] = new Array(boxes);
+    }
+
+  }
+
+  markFertility(creatureId, xPos, yPos){
+    this.fertilityGrid[xPos][yPos] = creatureId;
+  }
+
+  unmarkFertility(xPos, yPos){
+    this.fertilityGrid[xPos][yPos] = null;
+  }
+
+  getFertility(xPos, yPos){
+    return this.fertilityGrid[xPos][yPos];
   }
 
   renderCanvas(size, boxes) {
@@ -16,11 +35,12 @@ export class Canvas {
         let x =  (0.5 * size - 0.5 * boxSize) + (size / (boxes + 1) * i);
         let y =  (0.5 * size - 0.5 * boxSize) + (size / (boxes + 1) * j);
 
-        ctx.fillStyle = "#AAAAAA";
+        ctx.fillStyle = "#cccccc";
         ctx.fillRect(x, y, boxSize, boxSize);
-        ctx.font = "10px Comic Sans MS";
+        ctx.font = "8px Comic Sans MS";
         ctx.fillStyle = "black";
-        ctx.fillText(i + ", " + j, x+0.2*boxSize, y+0.5*boxSize);
+        ctx.fillText(i + "|" + j, x, y+8);
+
     }
   }
 }
