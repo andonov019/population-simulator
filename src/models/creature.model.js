@@ -2,24 +2,24 @@ import { v4 as uuidv4 } from "uuid";
 import randomName from "random-name";
 
 export class Creature {
-  constructor({ parrent, gridMin, gridMax }) {
+  constructor({ parent = [null, null], gridMin, gridMax }) {
     this._id = uuidv4();
-    this._xPullChange = getRandom(0, 1, 2);
-    this._yPullChange = getRandom(0, 1, 2);
+    this._xPullChange = this.getRandom(0, 1, 2);
+    this._yPullChange = this.getRandom(0, 1, 2);
     this._name = randomName.first();
-    this._parrent = parrent;
+    this._parent = parent;
     this._age = 0;
-    this._speed = getRandom(0, 1, 2);
-    this._xPull = getRandom(-1, 1, 2);
-    this._yPull = getRandom(-1, 1, 2);
-    this._xPos = getRandom(gridMin, gridMax, 0);
-    this._yPos = getRandom(gridMin, gridMax, 0);
+    this._speed = this.getRandom(1, 0.25 * gridMax, 2);
+    this._xPull = this.getRandom(-1, 1, 2);
+    this._yPull = this.getRandom(-1, 1, 2);
+    this._xPos = this.getRandom(gridMin, gridMax, 0);
+    this._yPos = this.getRandom(gridMin, gridMax, 0);
     this._pregnancyTimer = 10;
   }
 
   getRandom(min, max, decimal) {
     const random = Math.random() * (max - min) + min;
-    return random.toFixed(decimal);
+    return +random.toFixed(decimal);
   }
 
   // id
@@ -42,9 +42,9 @@ export class Creature {
     return this._name;
   }
 
-  // parrent
-  get parrent() {
-    return this._parrent;
+  // parent
+  get parent() {
+    return this._parent;
   }
 
   // age
