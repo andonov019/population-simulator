@@ -1,15 +1,4 @@
-class creature {
-    isAlive
-    age
-    pregnancyTimer
-    speed
-    xPos
-    yPos
-    xPull
-    yPull
-    xPullChange
-    yPullChange
-
+class creatureController {
 
 
    async act() {
@@ -64,8 +53,8 @@ class creature {
    }
 
    move () {
-       this.xPos = this.speed * this.xPull;
-       this.yPos = this.speed * this.yPull;
+       this.xPos = math.round(this.xPos + (this.speed * this.xPull));
+       this.yPos = math.round(this.yPos + (this.speed * this.yPull));
    }
 
     async  checkReproduction({ creatureId, xPos, yPos, pregnancyTimer }) {
