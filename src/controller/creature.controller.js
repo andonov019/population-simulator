@@ -33,16 +33,16 @@ export class CreatureController {
 
   // update the creature's movement preferences
   updateDirection() {
-    if (this._creature.xPos == canvas.maxX) {
+    if (this._creature.xPos == gridMax) {
       this._creature.xPull = -1;
     }
-    if (this._creature.xPos == canvas.minX) {
+    if (this._creature.xPos == gridMin) {
       this._creature.xPull = 1;
     }
-    if (this._creature.yPos == canvas.maxY) {
+    if (this._creature.yPos == gridMax) {
       this._creature.yPull = -1;
     }
-    if (this._creature.yPos == canvas.minY) {
+    if (this._creature.yPos == gridMin) {
       this._creature.yPull = 1;
     }
 
@@ -88,18 +88,17 @@ export class CreatureController {
   // Fertilize location, possibly spawn child
   async checkReproduction({ creatureId, xPos, yPos, pregnancyTimer }) {
     if (pregnancyTimer > 0) return;
-    const isMarked = await canvas.checkIsMarked({ xPos, yPos });
+    const markerId = await population.getMarker(xPos, yPos);
 
-    if (isMarked) {
-      const markerId = await canvas.getMarkerId({ xPos, yPos });
+    if (markerId) {
       await this._population.addCreature([creatureId, markerId]);
 
       this._creature.pregnancyTimer = 10;
       await this.setPregnancyTimer({ markerId, newValue: 10 });
 
-      await setIsNotMarked({ xPos, yPos });
+      await population.markPosition({ xPos, yPos, creatureId});
     } else {
-      await setIsMarked({ creatureId, xPos, yPos });
+      await population.markPosition({ xPos, yPos, creatureId});
     }
   }
 

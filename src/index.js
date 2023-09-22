@@ -9,7 +9,7 @@ const canvas = new Canvas(canvasSize, gridSize);
 const population = new Population({ gridMin: -(0.5*gridSize), gridMax: (0.5*gridSize) });
 population.populate(initialPopulation);
 const creatures = population.getAllCreatures();
-canvas.updateCanvas(Array.from(creatures.values()));
+canvas.updateCanvas(canvasSize, gridSize, Array.from(creatures.values()));
 
 do {
   await population.makeACycleHandler();

@@ -2,7 +2,6 @@ export class Canvas {
 
   constructor(size, boxes) {
     var emptyPopulation = new Array(0);
-    this.renderCanvas(size, boxes,emptyPopulation);
 
     this.fertilityGrid = new Array(boxes);
     for (var i = 0; i < this.fertilityGrid.length; i++) {
@@ -22,8 +21,8 @@ export class Canvas {
     return this.fertilityGrid[xPos][yPos];
   }
 
-  updateCanvas(allCreatures){
-    console.log(allCreatures);
+  updateCanvas(size, boxes, allCreatures){
+    console.log(allCreatures.length);
     this.renderCanvas(size, boxes, allCreatures)
   }
 
