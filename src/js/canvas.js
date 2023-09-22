@@ -7,7 +7,6 @@ export class Canvas {
     for (var i = 0; i < this.fertilityGrid.length; i++) {
       this.fertilityGrid[i] = new Array(boxes);
     }
-
   }
 
   markFertility(creatureId, xPos, yPos){
@@ -48,7 +47,10 @@ export class Canvas {
     }
 
     for (let i = 0; i < allCreatures.length; i++){
-        ctx.arc(allCreatures[i].xPos, allCreatures[i].yPos, 15, 0, 2 * Math.PI, false);
+
+      let x = (0.5 * size - 0.5 * boxSize) + (size / (boxes + 1) * allCreatures[i].xPos);
+      let y = (0.5 * size - 0.5 * boxSize) + (size / (boxes + 1) * allCreatures[i].yPos);
+        ctx.arc(x, y, 15, 0, 2 * Math.PI, false);
         ctx.fillStyle = 'green';
         ctx.fill();
         ctx.lineWidth = 2;
