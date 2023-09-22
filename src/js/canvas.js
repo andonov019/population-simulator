@@ -28,11 +28,11 @@ export class Canvas {
     }
 
     allCreatures.forEach(creature=> {
-      console.log(creature)
-      let x = (0.5 * size - 0.5 * boxSize) + (size / (boxes + 1) * creature.creature.xPos);
-      let y = (0.5 * size - 0.5 * boxSize) + (size / (boxes + 1) * creature.creature.yPos);
+      let x = (0.5 * size ) + (size / (boxes + 1) * creature.creature.xPos);
+      let y = (0.5 * size ) + (size / (boxes + 1) * creature.creature.yPos);
+      ctx.beginPath();
       ctx.arc(x, y, 15, 0, 2 * Math.PI, false);
-      ctx.fillStyle = 'green';
+      ctx.fillStyle = '#33ff00';
       ctx.fill();
       ctx.lineWidth = 2;
       ctx.strokeStyle = '#003300';

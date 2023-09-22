@@ -76,9 +76,22 @@ export class CreatureController {
     this._creature.xPos = Math.round(
       this._creature.xPos + this._creature.speed * this._creature.xPull
     );
+    if (this._creature.xPos > this.gridMax){
+      this._creature.xPos = this.gridMax
+    }
+    if (this._creature.xPos < this.gridMin){
+      this._creature.xPos = this.gridMin
+    }
+
     this._creature.yPos = Math.round(
       this._creature.yPos + this._creature.speed * this._creature.yPull
     );
+    if (this._creature.yPos > this.gridMax){
+      this._creature.yPos = this.gridMax
+    }
+    if (this._creature.yPos < this.gridMin){
+      this._creature.yPos = this.gridMin
+    }
   }
 
   // Fertilize location, possibly spawn child

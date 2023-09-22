@@ -16,6 +16,7 @@ export class Creature {
 
   getRandom(min, max, decimal) {
     const random = Math.random() * (max - min) + min;
+    console.log(+random.toFixed(decimal));
     return +random.toFixed(decimal);
   }
 
