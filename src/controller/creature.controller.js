@@ -88,7 +88,7 @@ export class CreatureController {
   // Fertilize location, possibly spawn child
   async checkReproduction({ creatureId, xPos, yPos, pregnancyTimer }) {
     if (pregnancyTimer > 0) return;
-    const markerId = await population.getMarker(xPos, yPos);
+    const markerId = await this._population.getMarker({xPos, yPos});
 
     if (markerId) {
       await this._population.addCreature([creatureId, markerId]);
@@ -96,9 +96,9 @@ export class CreatureController {
       this._creature.pregnancyTimer = 10;
       await this.setPregnancyTimer({ markerId, newValue: 10 });
 
-      await population.markPosition({ xPos, yPos, creatureId});
+      await this._population.unMarkPosition({ xPos, yPos });
     } else {
-      await population.markPosition({ xPos, yPos, creatureId});
+      await this._population.markPosition({ xPos, yPos, creatureId});
     }
   }
 
