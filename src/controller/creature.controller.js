@@ -13,12 +13,13 @@ export class CreatureController {
   // make a creature perform its routine
   async act() {
     if (this._creature.isAlive) {
-      this.updateFertility();
+      await this.updateFertility();
       await this.updateDirection();
-      this.move();
+      await this.move();
       await this.checkReproduction();
-      this.checkDeath();
-      canvas.update(creatureID);
+      await this.checkDeath();
+
+      return null;
     }
   }
 
