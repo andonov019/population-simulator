@@ -1,6 +1,6 @@
 class creatureController {
 
-
+    // make a creature perform its routine
    async act() {
         if(this.isAlive) {
             this.updateFertility();
@@ -8,18 +8,20 @@ class creatureController {
             this.move();
             await this.checkReproduction();
             this.checkDeath();
-            population.update(creatureID);
+            canvas.update(creatureID);
         }
 
         return true;
     }
 
+    // recover pregnancy time
      updateFertility(){
         if (this.pregnancyTimer > 0){
             this.pregnancyTimer = this.pregnancyTimer - 1;
         }
     }
 
+    // update the creature's movement preferences
   async updateDirection() {
        if (this.xPos == canvas.maxX) {
            this.xPull = -1;
@@ -52,11 +54,13 @@ class creatureController {
       return true;
    }
 
+   //perform the creature's movement according to it's preferences and speed
    move () {
        this.xPos = math.round(this.xPos + (this.speed * this.xPull));
        this.yPos = math.round(this.yPos + (this.speed * this.yPull));
    }
 
+   // Fertilize location, possibly spawn child
     async  checkReproduction({ creatureId, xPos, yPos, pregnancyTimer }) {
         if (pregnancyTimer > 0) return;
         const isMarked = await canvas.checkIsMarked({ xPos, yPos });
@@ -74,6 +78,7 @@ class creatureController {
         }
     }
 
+    // determine if creature dies
     checkDeath() {
         if (math.random()*200 < this.age ){
             this.isAlive = false;
