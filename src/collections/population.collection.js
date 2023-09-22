@@ -24,7 +24,7 @@ export class Population {
   }
 
   // get 1 Creature
-  getCreatures(creatureId) {
+  getCreature(creatureId) {
     return this._creatures.get(creatureId);
   }
 
