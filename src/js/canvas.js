@@ -1,9 +1,6 @@
 export class Canvas {
-
-
-
-  updateCanvas(size, boxes, allCreatures){
-    this.renderCanvas(size, boxes, allCreatures)
+  updateCanvas(size, boxes, allCreatures) {
+    this.renderCanvas(size, boxes, allCreatures);
   }
 
   renderCanvas(size, boxes, allCreatures) {
@@ -11,13 +8,12 @@ export class Canvas {
     canvas.width = size;
     canvas.height = size;
     const ctx = canvas.getContext("2d");
-    const boxSize = size / (boxes + 1) -1;
+    const boxSize = size / (boxes + 1) - 1;
 
-    for (let i = 0.5*boxes; i >= -0.5*boxes; i--){
-      for (let j = -0.5*boxes; j <= 0.5*boxes; j++) {
-
-        let x = (0.5 * size - 0.5 * boxSize) + (size / (boxes + 1) * i);
-        let y = (0.5 * size - 0.5 * boxSize) + (size / (boxes + 1) * j);
+    for (let i = 0.5 * boxes; i >= -0.5 * boxes; i--) {
+      for (let j = -0.5 * boxes; j <= 0.5 * boxes; j++) {
+        let x = 0.5 * size - 0.5 * boxSize + (size / (boxes + 1)) * i;
+        let y = 0.5 * size - 0.5 * boxSize + (size / (boxes + 1)) * j;
 
         ctx.fillStyle = "#cccccc";
         ctx.fillRect(x, y, boxSize, boxSize);
@@ -26,18 +22,17 @@ export class Canvas {
         ctx.fillText(i + "|" + j, x, y + 8);
       }
     }
-
-    allCreatures.forEach(creature=> {
-      let x = (0.5 * size ) + (size / (boxes + 1) * creature.creature.xPos);
-      let y = (0.5 * size ) + (size / (boxes + 1) * creature.creature.yPos);
-      console.log(creature.creature.xPos+", "+ creature.creature.yPos)
+    allCreatures.forEach((creature) => {
+      let x = 0.5 * size + (size / (boxes + 1)) * creature.creature.xPos;
+      let y = 0.5 * size + (size / (boxes + 1)) * creature.creature.yPos;
+      console.log(creature.creature.xPos + ", " + creature.creature.yPos);
       ctx.beginPath();
       ctx.arc(x, y, 15, 0, 2 * Math.PI, false);
-      ctx.fillStyle =creature.creature.color ;
+      ctx.fillStyle = "#33ff00";
       ctx.fill();
       ctx.lineWidth = 2;
-      ctx.strokeStyle = '#003300';
+      ctx.strokeStyle = "#003300";
       ctx.stroke();
-    })
+    });
   }
 }

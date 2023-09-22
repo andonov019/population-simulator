@@ -29,12 +29,14 @@ export class Population {
   }
 
   // add 1 Creature
-  addCreature(parent = [null, null]) {
+  addCreature({ parent = [null, null], xPos = null, yPos = null }) {
     const newCreature = new CreatureController({
       parent: parent,
       gridMin: this._gridMin,
       gridMax: this._gridMax,
       population: this,
+      xPos: xPos,
+      yPos: yPos,
     });
     this._creatures.set(newCreature.creature.id, newCreature);
   }
@@ -42,7 +44,7 @@ export class Population {
   // populate our Creatures
   populate(populationNumber) {
     for (let i = 0; i < populationNumber; i++) {
-      this.addCreature();
+      this.addCreature({});
     }
   }
 
