@@ -53,8 +53,8 @@ export class Population {
     });
   }
 
-  markPosition({ xPos, yPos, creature }) {
-    this._markedList.set(`${xPos}-${yPos}`, creature);
+  markPosition({ xPos, yPos, creatureId }) {
+    this._markedList.set(`${xPos}-${yPos}`, creatureId);
   }
 
   getMarker({ xPos, yPos }) {
