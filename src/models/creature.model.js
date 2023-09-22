@@ -2,19 +2,19 @@ import { v4 as uuidv4 } from "uuid";
 import randomName from "random-name";
 
 export class Creature {
-  constructor({ parrent, age, gridMin, gridMax, pregnencyTimer }) {
+  constructor({ parrent, gridMin, gridMax }) {
     this._id = uuidv4();
     this._xPullChange = getRandom(0, 1, 2);
     this._yPullChange = getRandom(0, 1, 2);
     this._name = randomName.first();
     this._parrent = parrent;
-    this._age = age;
+    this._age = 0;
     this._speed = getRandom(0, 1, 2);
     this._xPull = getRandom(-1, 1, 2);
     this._yPull = getRandom(-1, 1, 2);
     this._xPos = getRandom(gridMin, gridMax, 0);
     this._yPos = getRandom(gridMin, gridMax, 0);
-    this._pregnencyTimer = pregnencyTimer;
+    this._pregnancyTimer = 10;
   }
 
   getRandom(min, max, decimal) {
@@ -107,13 +107,13 @@ export class Creature {
     }
   }
 
-  // pregnencyTimer
-  get pregnencyTimer() {
-    return this._pregnencyTimer;
+  // pregnancyTimer
+  get pregnancyTimer() {
+    return this._pregnancyTimer;
   }
-  set pregnencyTimer(newPregnencyTimer) {
-    if (typeof newPregnencyTimer === "number" && newPregnencyTimer >= 0) {
-      this._pregnencyTimer = newPregnencyTimer.toFixed(0);
+  set pregnancyTimer(newPregnancyTimer) {
+    if (typeof newPregnancyTimer === "number" && newPregnancyTimer >= 0) {
+      this._pregnancyTimer = newPregnancyTimer.toFixed(0);
     }
   }
 }
