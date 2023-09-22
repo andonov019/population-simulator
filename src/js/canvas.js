@@ -22,6 +22,7 @@ export class Canvas {
   }
 
   updateCanvas(allCreatures){
+    console.log(allCreatures);
     this.renderCanvas(size, boxes, allCreatures)
   }
 
