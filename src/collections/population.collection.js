@@ -1,6 +1,7 @@
 import { CreatureController } from "../controller/creature.controller.js";
 export class Population {
   _creatures = new Map();
+  _markedList = new Map();
 
   constructor({ gridMin, gridMax }) {
     this._gridMin = gridMin;
@@ -50,5 +51,13 @@ export class Population {
     this._creatures.forEach((creature, key, map) => {
       creature.act();
     });
+  }
+
+  markPosition({ xPos, yPos, creatureId }) {
+    this._markedList.set(`${xPos}-${yPos}`, creatureId);
+  }
+
+  getMarker({ xPos, yPos }) {
+    return this._markedList.get(`${xPos}-${yPos}`);
   }
 }
