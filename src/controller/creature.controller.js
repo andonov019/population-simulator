@@ -1,88 +1,104 @@
-class creatureController {
+import { Creature } from "../models/creature.model";
 
-    // make a creature perform its routine
-   async act() {
-        if(this.isAlive) {
-            this.updateFertility();
-            await this.updateDirection();
-            this.move();
-            await this.checkReproduction();
-            this.checkDeath();
-            canvas.update(creatureID);
-        }
+export class CreatureController {
+  constructor({ parent = [null, null], gridMin, gridMax }) {
+    this._creature = new Creature({ parent, gridMin, gridMax });
+  }
 
-        return true;
+  // creature
+  get creature() {
+    return this._creature;
+  }
+
+  // make a creature perform its routine
+  async act() {
+    if (this._creature.isAlive) {
+      this.updateFertility();
+      await this.updateDirection();
+      this.move();
+      await this.checkReproduction();
+      this.checkDeath();
+      canvas.update(creatureID);
+    }
+  }
+
+  // recover pregnancy time
+  updateFertility() {
+    if (this._creature.pregnancyTimer > 0) {
+      this._creature.pregnancyTimer -= 1;
+    }
+  }
+
+  // update the creature's movement preferences
+  updateDirection() {
+    if (this._creature.xPos == canvas.maxX) {
+      this._creature.xPull = -1;
+    }
+    if (this._creature.xPos == canvas.minX) {
+      this._creature.xPull = 1;
+    }
+    if (this._creature.yPos == canvas.maxY) {
+      this._creature.yPull = -1;
+    }
+    if (this._creature.yPos == canvas.minY) {
+      this._creature.yPull = 1;
     }
 
-    // recover pregnancy time
-     updateFertility(){
-        if (this.pregnancyTimer > 0){
-            this.pregnancyTimer = this.pregnancyTimer - 1;
-        }
+    this._creature.xPull =
+      (math.random() - 0.5) * 0.25 * this._creature.xPullChange +
+      this._creature.xPullChange +
+      this._creature.xPull;
+    this._creature.yPull =
+      (math.random() - 0.5) * 0.25 * this._creature.yPullChange +
+      this._creature.yPullChange +
+      this._creature.yPull;
+
+    if (this._creature.xPull > 1) {
+      this._creature.xPull = 1;
     }
-
-    // update the creature's movement preferences
-  async updateDirection() {
-       if (this.xPos == canvas.maxX) {
-           this.xPull = -1;
-       }
-       if (this.xPos == canvas.minX) {
-           this.xPull = 1;
-       }
-       if (this.yPos == canvas.maxY) {
-           this.yPull = -1;
-       }
-       if (this.yPos == canvas.minY) {
-           this.yPull = 1;
-       }
-
-       this.xPull = (math.random()-0.5) * 0.25 * this.xPullChange + this.xPullChange + this.xPull;
-       this.yPull = (math.random()-0.5) * 0.25 * this.yPullChange + this.yPullChange + this.yPull;
-
-       if (this.xPull > 1) {
-           this.xPull = 1;
-       }
-       if (this.xPull < -1) {
-           this.xPull = -1;
-       }
-       if (this.yPull > 1) {
-           this.yPull = 1;
-       }
-       if (this.yPull < -1) {
-           this.yPull = -1;
-       }
-      return true;
-   }
-
-   //perform the creature's movement according to it's preferences and speed
-   move () {
-       this.xPos = math.round(this.xPos + (this.speed * this.xPull));
-       this.yPos = math.round(this.yPos + (this.speed * this.yPull));
-   }
-
-   // Fertilize location, possibly spawn child
-    async  checkReproduction({ creatureId, xPos, yPos, pregnancyTimer }) {
-        if (pregnancyTimer > 0) return;
-        const isMarked = await canvas.checkIsMarked({ xPos, yPos });
-
-        if (isMarked) {
-            const markerId = await canvas.getMarkerId({ xPos, yPos });
-            await createChild({ creatureId, markerId });
-
-            this.pregnancyTimer = 10;
-            await population.setPregnancyTimer(markerId, 10);
-
-            await setIsNotMarked({ xPos, yPos });
-        } else {
-            await setIsMarked({ creatureId, xPos, yPos });
-        }
+    if (this._creature.xPull < -1) {
+      this._creature.xPull = -1;
     }
-
-    // determine if creature dies
-    checkDeath() {
-        if (math.random()*200 < this.age ){
-            this.isAlive = false;
-        }
+    if (this._creature.yPull > 1) {
+      this._creature.yPull = 1;
     }
+    if (this._creature.yPull < -1) {
+      this._creature.yPull = -1;
+    }
+  }
 
+  //perform the creature's movement according to it's preferences and speed
+  move() {
+    this._creature.xPos = math.round(
+      this._creature.xPos + this._creature.speed * this._creature.xPull
+    );
+    this._creature.yPos = math.round(
+      this._creature.yPos + this._creature.speed * this._creature.yPull
+    );
+  }
+
+  // Fertilize location, possibly spawn child
+  async checkReproduction({ creatureId, xPos, yPos, pregnancyTimer }) {
+    if (pregnancyTimer > 0) return;
+    const isMarked = await canvas.checkIsMarked({ xPos, yPos });
+
+    if (isMarked) {
+      const markerId = await canvas.getMarkerId({ xPos, yPos });
+      await population.addCreature([creatureId, markerId]);
+
+      this._creature.pregnancyTimer = 10;
+      await this.setPregnancyTimer(markerId, 10);
+
+      await setIsNotMarked({ xPos, yPos });
+    } else {
+      await setIsMarked({ creatureId, xPos, yPos });
+    }
+  }
+
+  // determine if creature dies
+  checkDeath() {
+    if (math.random() * 200 < this._creature.age) {
+      this._creature.isAlive = false;
+    }
+  }
 }
