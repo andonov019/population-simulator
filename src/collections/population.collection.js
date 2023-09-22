@@ -57,6 +57,10 @@ export class Population {
     this._markedList.set(`${xPos}-${yPos}`, creatureId);
   }
 
+  unmarkPosition({ xPos, yPos }) {
+    this._markedList.delete(`${xPos}-${yPos}`);
+  }
+
   getMarker({ xPos, yPos }) {
     return this._markedList.get(`${xPos}-${yPos}`);
   }
