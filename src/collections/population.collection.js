@@ -28,9 +28,9 @@ export class Population {
   }
 
   // add 1 Creature
-  addCreature(parrent = [null, null]) {
+  addCreature(parent = [null, null]) {
     const newCreature = new CreatureController({
-      parent: parrent,
+      parent: parent,
       gridMin: this._gridMin,
       gridMax: this._gridMax,
     });

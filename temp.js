@@ -1,7 +1,7 @@
 async function createChild({ creatureId, markerId }) {
   const gridSize = await getGridSize();
   const child = new Creature({
-    parrent: [creatureId, markerId],
+    parent: [creatureId, markerId],
     gridMin: gridSize.min,
     gridMax: gridSize.max,
   });
