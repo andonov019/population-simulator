@@ -107,6 +107,7 @@ export class CreatureController {
 
     if (markerId) {
       await this._population.addCreature([this._creature.id, markerId]);
+      console.log("Baby born!")
 
       this._creature.pregnancyTimer = 10;
       await this.setPregnancyTimer({ markerId, newValue: 10 });

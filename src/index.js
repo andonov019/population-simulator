@@ -1,7 +1,7 @@
 import { Canvas } from "./js/canvas.js";
 import { Population } from "./collections/population.collection.js";
 
-const roundRepeat = 10;
+const roundRepeat = 50;
 const canvasSize = 500;
 const gridSize = 10;
 const initialPopulation = 10;
@@ -21,5 +21,5 @@ for (let i = 0; i < roundRepeat; i++) {
     await creature.act();
   });
   canvas.updateCanvas(canvasSize, gridSize, Array.from(creatures.values()));
-  await timer(3000);
+  await timer(200);
 }
