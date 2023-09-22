@@ -15,6 +15,7 @@ export class Creature {
     this._xPos = this.getRandom(gridMin, gridMax, 0);
     this._yPos = this.getRandom(gridMin, gridMax, 0);
     this._pregnancyTimer = 10;
+    this._isAlive = true;
   }
 
   getRandom(min, max, decimal) {
@@ -114,6 +115,16 @@ export class Creature {
   set pregnancyTimer(newPregnancyTimer) {
     if (typeof newPregnancyTimer === "number" && newPregnancyTimer >= 0) {
       this._pregnancyTimer = newPregnancyTimer.toFixed(0);
+    }
+  }
+
+  // isAlive
+  get isAlive() {
+    return this._isAlive;
+  }
+  set isAlive(newIsAlive) {
+    if (typeof newPregnancyTimer === "boolean") {
+      this._isAlive = newIsAlive;
     }
   }
 }
