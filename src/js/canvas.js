@@ -1,12 +1,10 @@
-class Canvas {
-  constructor(size) {
-    this.renderCanvas(size);
+export class Canvas {
+  constructor(cellSlots) {
+    this.renderCanvas(cellSlots);
   }
 
-  renderCanvas(size) {
+  renderCanvas(cellsToGenerate) {
     const container = document.getElementById("grid-container");
-
-    const cellsToGenerate = 100;
 
     for (let i = 0; i < cellsToGenerate; i++) {
       const newDiv = document.createElement("div");
@@ -16,5 +14,3 @@ class Canvas {
     }
   }
 }
-
-const canvas = new Canvas([0, 1]);
