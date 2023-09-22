@@ -1,7 +1,7 @@
 export class Canvas {
 
   constructor(size, boxes) {
-    this.renderCanvas(size, boxes);
+    this.renderCanvas(size, boxes,null);
 
     this.fertilityGrid = new Array(boxes);
     for (var i = 0; i < this.fertilityGrid.length; i++) {
@@ -22,7 +22,11 @@ export class Canvas {
     return this.fertilityGrid[xPos][yPos];
   }
 
-  renderCanvas(size, boxes) {
+  updateCanvas(allCreatures){
+    this.renderCanvas(size, boxes, allCreatures)
+  }
+
+  renderCanvas(size, boxes, allCreatures) {
     const canvas = document.getElementById("grid-container");
     canvas.width = size;
     canvas.height = size;
@@ -43,10 +47,8 @@ export class Canvas {
       }
     }
 
-    var creaturesToRender = population.getAllCreatures();
-
-    for (let i = 0; i < creaturesToRender.length; i++){
-        ctx.arc(creaturesToRender[i].xPos, creaturesToRender[i].yPos, 15, 0, 2 * Math.PI, false);
+    for (let i = 0; i < allCreatures.length; i++){
+        ctx.arc(allCreatures[i].xPos, allCreatures[i].yPos, 15, 0, 2 * Math.PI, false);
         ctx.fillStyle = 'green';
         ctx.fill();
         ctx.lineWidth = 2;
