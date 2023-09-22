@@ -1,7 +1,8 @@
 export class Canvas {
 
   constructor(size, boxes) {
-    this.renderCanvas(size, boxes,null);
+    var emptyPopulation = new Array(0);
+    this.renderCanvas(size, boxes,emptyPopulation);
 
     this.fertilityGrid = new Array(boxes);
     for (var i = 0; i < this.fertilityGrid.length; i++) {
