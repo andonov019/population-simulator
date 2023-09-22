@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import randomName from "random-name";
 
 export class Creature {
-  constructor({ parent = [null, null], gridMin, gridMax }) {
+  constructor({ parent, gridMin, gridMax }) {
     this._id = uuidv4();
     this._xPullChange = this.getRandom(0, 1, 2);
     this._yPullChange = this.getRandom(0, 1, 2);
