@@ -2,21 +2,10 @@ import { v4 as uuidv4 } from "uuid";
 import randomName from "random-name";
 
 export class Creature {
-  constructor(
-    xPullChanage,
-    yPullChange,
-    parrent,
-    age,
-    speed,
-    xPull,
-    yPull,
-    xPos,
-    yPos,
-    pregnencyTimer
-  ) {
+  constructor(parrent, age, speed, xPull, yPull, xPos, yPos, pregnencyTimer) {
     this._id = uuidv4();
-    this._xPullChanage = xPullChanage;
-    this._yPullChange = yPullChange;
+    this._xPullChange = Math.random().toFixed(2);
+    this._yPullChange = Math.random().toFixed(2);
     this._name = randomName.first();
     this._parrent = parrent;
     this._age = age;
@@ -33,9 +22,9 @@ export class Creature {
     return this._id;
   }
 
-  // xPullChanage
-  get xPullChanage() {
-    return this._xPullChanage;
+  // xPullChange
+  get xPullChange() {
+    return this._xPullChange;
   }
 
   // yPullChange
