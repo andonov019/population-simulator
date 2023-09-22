@@ -1,16 +1,18 @@
 import { Canvas } from "./js/canvas.js";
 import { Population } from "./collections/population.collection.js";
 
-const roundRepeat = 50;
-const canvasSize = 500;
-const gridSize = 10;
-const initialPopulation = 10;
+const roundRepeat = 100;
+const canvasSize = 600;
+const gridSize = 30;
+const maxAge = 200;
+const initialPopulation = 40;
 const timer = (ms) => new Promise((res) => setTimeout(res, ms));
 
 const canvas = new Canvas();
 const population = new Population({
   gridMin: -(0.5 * gridSize),
   gridMax: 0.5 * gridSize,
+  maxAge: maxAge
 });
 population.populate(initialPopulation);
 const creatures = population.getAllCreatures();
@@ -21,5 +23,5 @@ for (let i = 0; i < roundRepeat; i++) {
     await creature.act();
   });
   canvas.updateCanvas(canvasSize, gridSize, Array.from(creatures.values()));
-  await timer(200);
+  await timer(100);
 }

@@ -13,6 +13,7 @@ export class CreatureController {
     this._population = population;
     this.gridMax = gridMax;
     this.gridMin = gridMin;
+    this.counter = population.getAllCreatures().size;
   }
 
   // creature
@@ -28,6 +29,7 @@ export class CreatureController {
       this.move();
       await this.checkReproduction();
       this.checkDeath();
+      this._creature.age++;
     }
   }
 
@@ -40,13 +42,13 @@ export class CreatureController {
 
   // update the creature's movement preferences
   updateDirection() {
-    if (this._creature.xPos >= this.gridMax/3) {
+    if (this._creature.xPos >= this.gridMax) {
       this._creature.xPull = -1;
     }
     if (this._creature.xPos <= this.gridMin) {
       this._creature.xPull = 1;
     }
-    if (this._creature.yPos >= this.gridMax/3) {
+    if (this._creature.yPos >= this.gridMax) {
       this._creature.yPull = -1;
     }
     if (this._creature.yPos <= this.gridMin) {
@@ -119,6 +121,8 @@ export class CreatureController {
         xPos: null,
         yPos: null,
       });
+      ++this.counter;
+      console.log(this.counter);
       this._creature.pregnancyTimer = 10;
       await this.setPregnancyTimer({ markerId, newValue: 10 });
 
@@ -137,8 +141,10 @@ export class CreatureController {
 
   // determine if creature dies
   checkDeath() {
-    if (Math.random() * 200 < this._creature.age) {
+    if (Math.random() * this._population.maxAge < this._creature.age) {
       this._creature.isAlive = false;
+      --this.counter;
+      console.log(this.counter);
     }
   }
 }

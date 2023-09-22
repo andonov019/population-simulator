@@ -71,7 +71,7 @@ export class Creature {
     return this._xPull;
   }
   set xPull(newXPull) {
-    if (typeof newXPull === "number" && newXPull >= 0 && newXPull <= 1) {
+    if (typeof newXPull === "number" && newXPull >= -1 && newXPull <= 1) {
       this._xPull = newXPull.toFixed(2);
     }
   }
@@ -81,7 +81,7 @@ export class Creature {
     return this._yPull;
   }
   set yPull(newYPull) {
-    if (typeof newYPull === "number" && newYPull >= 0 && newYPull <= 1) {
+    if (typeof newYPull === "number" && newYPull >= -1 && newYPull <= 1) {
       this._yPull = newYPull.toFixed(2);
     }
   }
@@ -121,7 +121,7 @@ export class Creature {
     return this._isAlive;
   }
   set isAlive(newIsAlive) {
-    if (typeof newPregnancyTimer === "boolean") {
+    if (typeof newIsAlive === "boolean") {
       this._isAlive = newIsAlive;
     }
   }

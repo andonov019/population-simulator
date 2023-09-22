@@ -17,17 +17,18 @@ export class Canvas {
 
         ctx.fillStyle = "#cccccc";
         ctx.fillRect(x, y, boxSize, boxSize);
-        ctx.font = "8px Comic Sans MS";
+/*        ctx.font = "8px Comic Sans MS";
         ctx.fillStyle = "black";
-        ctx.fillText(i + "|" + j, x, y + 8);
+        ctx.fillText(i + "|" + j, x, y + 8);*/
       }
     }
     allCreatures.forEach((creature) => {
+      if(!creature.creature.isAlive) return;
+
       let x = 0.5 * size + (size / (boxes + 1)) * creature.creature.xPos;
       let y = 0.5 * size + (size / (boxes + 1)) * creature.creature.yPos;
-      console.log(creature.creature.xPos + ", " + creature.creature.yPos);
       ctx.beginPath();
-      ctx.arc(x, y, 15, 0, 2 * Math.PI, false);
+      ctx.arc(x, y, boxSize/2, 0, 2 * Math.PI, false);
       ctx.fillStyle = creature.creature.color;
       ctx.fill();
       ctx.lineWidth = 2;

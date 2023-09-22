@@ -3,9 +3,10 @@ export class Population {
   _creatures = new Map();
   _markedList = new Map();
 
-  constructor({ gridMin, gridMax }) {
+  constructor({ gridMin, gridMax, maxAge }) {
     this._gridMin = gridMin;
     this._gridMax = gridMax;
+    this._maxAge = maxAge
   }
 
   // gridMin
@@ -16,6 +17,11 @@ export class Population {
   // gridMax
   get gridMax() {
     return this._gridMax;
+  }
+
+  // maxAge
+  get maxAge() {
+    return this._maxAge;
   }
 
   // get all Creature
