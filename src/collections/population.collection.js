@@ -44,4 +44,11 @@ export class Population {
       this.addCreature();
     }
   }
+
+  // do a cycle
+  makeACycleHandler() {
+    this._creatures.forEach((creature, key, map) => {
+      creature.act();
+    });
+  }
 }
