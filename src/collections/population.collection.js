@@ -6,11 +6,12 @@ export class Population {
   _totalPopulation = 0;
 
 
-  constructor({ gridMin, gridMax, maxAge, reproductionTimer }) {
+  constructor({ gridMin, gridMax, maxAge, reproductionTimer, maxPopulation }) {
     this._gridMin = gridMin;
     this._gridMax = gridMax;
     this._maxAge = maxAge;
     this._reproductionTimer = reproductionTimer;
+    this._maxPopulation = maxPopulation;
   }
 
   // gridMin
@@ -32,6 +33,10 @@ export class Population {
     return this._reproductionTimer;
   }
 
+  get maxPopulation() {
+    return this._maxPopulation;
+  }
+
   // get all Creature
   getAllCreatures() {
     return this._creatures;
@@ -43,9 +48,10 @@ export class Population {
   }
 
   // add 1 Creature
-  addCreature({ parent = [null, null], xPos = null, yPos = null, reproductionTimer = null }) {
+  addCreature({ parent = [null, null], xPos = null, yPos = null, reproductionTimer = null, maxPopulation = null }) {
     const father = parent[0] ? this.getCreature(parent[0]): null;
-    const mother = parent[0] ? this.getCreature(parent[1]): null;
+    const mother = parent[1] ? this.getCreature(parent[1]): null;
+
     const newCreature = new CreatureController({
       parent: parent,
       gridMin: this._gridMin,
@@ -54,11 +60,13 @@ export class Population {
       xPos: father ? father.creature.xPos:xPos,
       yPos: father ? father.creature.yPos:yPos,
       speed: father ? (((father.creature.speed + mother.creature.speed)/2) * (1 + Math.random())): null,
-      xPullChange: father ? (((father.creature.xPullChange + mother.creature.xPullChange)/2) * (1 + Math.random())) : null,
-      yPullChange: father ? (((father.creature.yPullChange + mother.creature.yPullChange)/2) * (1 + Math.random())): null,
-      xPull:father ? (((father.creature.xPull + mother.creature.xPull)/2) * (1 + Math.random())): null,
-      yPull:father ? (((father.creature.yPull + mother.creature.yPull)/2) * (1 + Math.random())): null,
-      reproductionTimer: this.reproductionTimer
+      xPullChange: /*father ? (((father.creature.xPullChange + mother.creature.xPullChange)/2) * (1 + Math.random())) :*/ null,
+      yPullChange: /*father ? (((father.creature.yPullChange + mother.creature.yPullChange)/2) * (1 + Math.random())):*/ null,
+      xPull: null,
+      yPull: null,
+      color: father ? father.creature.color: null,
+      reproductionTimer: this.reproductionTimer,
+      maxPopulation: this.maxPopulation
     });
 
     this._creatures.set(newCreature.creature.id, newCreature);

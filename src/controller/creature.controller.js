@@ -7,13 +7,14 @@ export class CreatureController {
     gridMax,
     population,
     xPos,
-    yPos, speed, xPullChange, yPullChange , xPull, yPull, reproductionTimer
+    yPos, speed, xPullChange, yPullChange , xPull, yPull, color, reproductionTimer,maxPopulation
   }) {
-    this._creature = new Creature({ parent, gridMin, gridMax, xPos, yPos, speed, yPullChange,xPullChange, xPull, yPull, reproductionTimer });
+    this._creature = new Creature({ parent, gridMin, gridMax, xPos, yPos, speed, yPullChange,xPullChange, xPull, yPull, color, reproductionTimer, maxPopulation });
     this._population = population;
     this.gridMax = gridMax;
     this.gridMin = gridMin;
     this.reproductionTimer = reproductionTimer;
+    this.maxPopulation = maxPopulation;
   }
 
   // creature
@@ -43,45 +44,36 @@ export class CreatureController {
   // update the creature's movement preferences
   updateDirection() {
     if (this._creature.xPos >= this.gridMax) {
-      this._creature.xPull = -1;
+      this._creature.xPull = -1/this._creature.xPull;
     }
     if (this._creature.xPos <= this.gridMin) {
-      this._creature.xPull = 1;
+      this._creature.xPull = -1/this._creature.xPull;
     }
     if (this._creature.yPos >= this.gridMax) {
-      this._creature.yPull = -1;
+      this._creature.yPull = -1/this._creature.yPull;
     }
     if (this._creature.yPos <= this.gridMin) {
-      this._creature.yPull = 1;
+      this._creature.yPull = -1/this._creature.yPull;
     }
     this._creature.xPull =
       (Math.random() - 0.5) * 0.25 * this._creature.xPullChange +
       this._creature.xPullChange +
-      this._creature.xPull;
+      this._creature.xPull -
+        0.025*this._creature.xPos
+    ;
     this._creature.yPull =
       (Math.random() - 0.5) * 0.25 * this._creature.yPullChange +
       this._creature.yPullChange +
-      this._creature.yPull;
+      this._creature.yPull -
+      0.025*this._creature.yPos;
 
-    if (this._creature.xPull > 1) {
-      this._creature.xPull = 1;
-    }
-    if (this._creature.xPull < -1) {
-      this._creature.xPull = -1;
-    }
-    if (this._creature.yPull > 1) {
-      this._creature.yPull = 1;
-    }
-    if (this._creature.yPull < -1) {
-      this._creature.yPull = -1;
-    }
   }
 
   //perform the creature's movement according to it's preferences and speed
   move() {
 
     this._creature.xPos = this._creature.xPos +
-        Math.ceil(this._creature.speed * this._creature.xPull);
+        Math.round(this._creature.speed * this._creature.xPull);
 
     if (this._creature.xPos > this.gridMax) {
       this._creature.xPos = this.gridMax;
@@ -91,7 +83,7 @@ export class CreatureController {
     }
 
     this._creature.yPos = this._creature.yPos +
-        Math.ceil(this._creature.speed * this._creature.yPull);
+        Math.round(this._creature.speed * this._creature.yPull);
 
     if (this._creature.yPos > this.gridMax) {
       this._creature.yPos = this.gridMax;
@@ -115,7 +107,7 @@ export class CreatureController {
       yPos: this._creature.yPos,
     });
 
-    if (markerId && (markerId != this._creature.id)) {
+    if (markerId && (markerId != this._creature.id) && this._population._currentPopulation<this.maxPopulation) {
       await this._population.addCreature({
         parent: [this._creature.id, markerId],
         xPos: null,

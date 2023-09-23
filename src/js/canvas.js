@@ -29,7 +29,7 @@ export class Canvas {
       let y = 0.5 * size + (size / (boxes + 1)) * creature.creature.yPos;
       ctx.beginPath();
       ctx.arc(x, y, boxSize/2, 0, 2 * Math.PI, false);
-      ctx.fillStyle = creature.creature.color;
+      ctx.fillStyle = `rgb(${creature.creature.color[0]}, ${creature.creature.color[1]}, ${creature.creature.color[2]})`;
       ctx.fill();
       ctx.lineWidth = 1;
       ctx.strokeStyle = "#003300";

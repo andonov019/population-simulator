@@ -1,19 +1,22 @@
 import { colors } from "../js/colors.js";
 export class Creature {
-  constructor({ parent, gridMin, gridMax, xPos, yPos, speed, xPullChange, yPullChange , xPull, yPull, reproductionTimer}) {
+  constructor({ parent, gridMin, gridMax, xPos, yPos, speed, xPullChange, yPullChange , xPull, yPull, color, reproductionTimer, maxPopulation}) {
     this._id = Math.random();
-    this._xPullChange = xPullChange || this.getRandom(-1, 1, 10);
-    this._yPullChange = yPullChange || this.getRandom(-1, 1, 10);
+    this._xPullChange = xPullChange || this.getRandom(-0.5, 0.5, 10);
+    this._yPullChange = yPullChange || this.getRandom(-0.5, 0.5, 10);
     this._parent = parent;
     this._age = 0;
-    this._speed = speed || this.getRandom(1, 1.5, 10);
+    this._speed = speed || this.getRandom(0.0005 * gridMax, 0.01 * gridMax, 10);
     this._xPull = xPull || this.getRandom(-1, 1, 2);
     this._yPull = yPull || this.getRandom(-1, 1, 2);
     this._xPos = xPos || this.getRandom(gridMin, gridMax, 0);
     this._yPos = yPos || this.getRandom(gridMin, gridMax, 0);
     this._reproductionTimer = reproductionTimer;
+    this._maxPopulation = maxPopulation;
     this._isAlive = true;
-    this._color = colors[Math.floor(Math.random() * colors.length)];
+    //this._color = colors[Math.floor(Math.random() * colors.length)];
+    this._color = color || [this.getRandom(0, 255, 0),this.getRandom(0, 255, 0),this.getRandom(0, 255, 0)];
+
   }
 
   getRandom(min, max, decimal) {
@@ -71,8 +74,8 @@ export class Creature {
     return this._xPull;
   }
   set xPull(newXPull) {
-    if (typeof newXPull === "number" && newXPull >= -1 && newXPull <= 1) {
-      this._xPull = newXPull.toFixed(2);
+    if (typeof newXPull === "number" ) {
+      this._xPull = newXPull;
     }
   }
 
@@ -81,8 +84,8 @@ export class Creature {
     return this._yPull;
   }
   set yPull(newYPull) {
-    if (typeof newYPull === "number" && newYPull >= -1 && newYPull <= 1) {
-      this._yPull = newYPull.toFixed(2);
+    if (typeof newYPull === "number") {
+      this._yPull = newYPull;
     }
   }
 
@@ -106,14 +109,19 @@ export class Creature {
     }
   }
 
-  // pregnancyTimer
+  // reproductionTimer
   get reproductionTimer() {
     return this._reproductionTimer;
   }
-  set reproductionTimer(newPregnancyTimer) {
-    if (typeof newPregnancyTimer === "number" && newPregnancyTimer >= 0) {
-      this._reproductionTimer = newPregnancyTimer.toFixed(0);
+  set reproductionTimer(newReproductionTimer) {
+    if (typeof newReproductionTimer === "number" && newReproductionTimer >= 0) {
+      this._reproductionTimer = newReproductionTimer.toFixed(0);
     }
+  }
+
+  // maxPopulation
+  get maxPopulation() {
+    return this._maxPopulation;
   }
 
   // isAlive
