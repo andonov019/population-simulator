@@ -7,13 +7,13 @@ export class CreatureController {
     gridMax,
     population,
     xPos,
-    yPos,
+    yPos, speed, xPullChange, yPullChange , xPull, yPull, reproductionTimer
   }) {
-    this._creature = new Creature({ parent, gridMin, gridMax, xPos, yPos });
+    this._creature = new Creature({ parent, gridMin, gridMax, xPos, yPos, speed, yPullChange,xPullChange, xPull, yPull, reproductionTimer });
     this._population = population;
     this.gridMax = gridMax;
     this.gridMin = gridMin;
-    this.counter = population.getAllCreatures().size;
+    this.reproductionTimer = reproductionTimer;
   }
 
   // creature
@@ -35,8 +35,8 @@ export class CreatureController {
 
   // recover pregnancy time
   updateFertility() {
-    if (this._creature.pregnancyTimer > 0) {
-      this._creature.pregnancyTimer -= 1;
+    if (this._creature.reproductionTimer > 0) {
+      this._creature.reproductionTimer -= 1;
     }
   }
 
@@ -54,7 +54,6 @@ export class CreatureController {
     if (this._creature.yPos <= this.gridMin) {
       this._creature.yPull = 1;
     }
-
     this._creature.xPull =
       (Math.random() - 0.5) * 0.25 * this._creature.xPullChange +
       this._creature.xPullChange +
@@ -80,9 +79,10 @@ export class CreatureController {
 
   //perform the creature's movement according to it's preferences and speed
   move() {
-    this._creature.xPos = Math.round(
-      this._creature.xPos + this._creature.speed * this._creature.xPull
-    );
+
+    this._creature.xPos = this._creature.xPos +
+        Math.ceil(this._creature.speed * this._creature.xPull);
+
     if (this._creature.xPos > this.gridMax) {
       this._creature.xPos = this.gridMax;
     }
@@ -90,9 +90,9 @@ export class CreatureController {
       this._creature.xPos = this.gridMin;
     }
 
-    this._creature.yPos = Math.round(
-      this._creature.yPos + this._creature.speed * this._creature.yPull
-    );
+    this._creature.yPos = this._creature.yPos +
+        Math.ceil(this._creature.speed * this._creature.yPull);
+
     if (this._creature.yPos > this.gridMax) {
       this._creature.yPos = this.gridMax;
     }
@@ -102,29 +102,27 @@ export class CreatureController {
   }
 
   // Fertilize location, possibly spawn child
-  async setPregnancyTimer({ markerId, newValue }) {
+  async setReproductionTimer({ markerId, newValue }) {
     const marker = this._population.getCreature(markerId);
-    marker._creature.pregnancyTimer = newValue;
+    marker._creature.reproductionTimer = newValue;
   }
 
   // Fertilize location, possibly spawn child
   async checkReproduction() {
-    if (this._creature.pregnancyTimer > 0) return;
+    if (this._creature.reproductionTimer > 0) return;
     const markerId = await this._population.getMarker({
       xPos: this._creature.xPos,
       yPos: this._creature.yPos,
     });
 
-    if (markerId) {
+    if (markerId && (markerId != this._creature.id)) {
       await this._population.addCreature({
         parent: [this._creature.id, markerId],
         xPos: null,
         yPos: null,
       });
-      ++this.counter;
-      console.log(this.counter);
-      this._creature.pregnancyTimer = 10;
-      await this.setPregnancyTimer({ markerId, newValue: 10 });
+      this._creature.reproductionTimer = this.reproductionTimer;
+      await this.setReproductionTimer({ markerId, newValue: 5 });
 
       await this._population.unmarkPosition({
         xPos: this._creature.xPos,
@@ -143,8 +141,7 @@ export class CreatureController {
   checkDeath() {
     if (Math.random() * this._population.maxAge < this._creature.age) {
       this._creature.isAlive = false;
-      --this.counter;
-      console.log(this.counter);
+      this._population._currentPopulation--;
     }
   }
 }

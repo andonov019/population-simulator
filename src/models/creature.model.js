@@ -1,17 +1,17 @@
 import { colors } from "../js/colors.js";
 export class Creature {
-  constructor({ parent, gridMin, gridMax, xPos, yPos }) {
+  constructor({ parent, gridMin, gridMax, xPos, yPos, speed, xPullChange, yPullChange , xPull, yPull, reproductionTimer}) {
     this._id = Math.random();
-    this._xPullChange = this.getRandom(-1, 1, 2);
-    this._yPullChange = this.getRandom(-1, 1, 2);
+    this._xPullChange = xPullChange || this.getRandom(-1, 1, 10);
+    this._yPullChange = yPullChange || this.getRandom(-1, 1, 10);
     this._parent = parent;
     this._age = 0;
-    this._speed = this.getRandom(1, 0.25 * gridMax, 2);
-    this._xPull = this.getRandom(-1, 1, 2);
-    this._yPull = this.getRandom(-1, 1, 2);
+    this._speed = speed || this.getRandom(1, 1.5, 10);
+    this._xPull = xPull || this.getRandom(-1, 1, 2);
+    this._yPull = yPull || this.getRandom(-1, 1, 2);
     this._xPos = xPos || this.getRandom(gridMin, gridMax, 0);
     this._yPos = yPos || this.getRandom(gridMin, gridMax, 0);
-    this._pregnancyTimer = 10;
+    this._reproductionTimer = reproductionTimer;
     this._isAlive = true;
     this._color = colors[Math.floor(Math.random() * colors.length)];
   }
@@ -107,12 +107,12 @@ export class Creature {
   }
 
   // pregnancyTimer
-  get pregnancyTimer() {
-    return this._pregnancyTimer;
+  get reproductionTimer() {
+    return this._reproductionTimer;
   }
-  set pregnancyTimer(newPregnancyTimer) {
+  set reproductionTimer(newPregnancyTimer) {
     if (typeof newPregnancyTimer === "number" && newPregnancyTimer >= 0) {
-      this._pregnancyTimer = newPregnancyTimer.toFixed(0);
+      this._reproductionTimer = newPregnancyTimer.toFixed(0);
     }
   }
 

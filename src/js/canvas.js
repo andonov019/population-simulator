@@ -8,7 +8,7 @@ export class Canvas {
     canvas.width = size;
     canvas.height = size;
     const ctx = canvas.getContext("2d");
-    const boxSize = size / (boxes + 1) - 1;
+    const boxSize = size / (boxes + 1);
 
     for (let i = 0.5 * boxes; i >= -0.5 * boxes; i--) {
       for (let j = -0.5 * boxes; j <= 0.5 * boxes; j++) {
@@ -31,7 +31,7 @@ export class Canvas {
       ctx.arc(x, y, boxSize/2, 0, 2 * Math.PI, false);
       ctx.fillStyle = creature.creature.color;
       ctx.fill();
-      ctx.lineWidth = 2;
+      ctx.lineWidth = 1;
       ctx.strokeStyle = "#003300";
       ctx.stroke();
     });
