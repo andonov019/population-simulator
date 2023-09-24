@@ -59,7 +59,7 @@ export class Population {
       population: this,
       xPos: father ? father.creature.xPos:xPos,
       yPos: father ? father.creature.yPos:yPos,
-      speed: father ? (((father.creature.speed + mother.creature.speed)/2) * (1 + Math.random())): null,
+      speed: /*father ? (((father.creature.speed + mother.creature.speed)/2) * (1 + Math.random())):*/ null,
       xPullChange: /*father ? (((father.creature.xPullChange + mother.creature.xPullChange)/2) * (1 + Math.random())) :*/ null,
       yPullChange: /*father ? (((father.creature.yPullChange + mother.creature.yPullChange)/2) * (1 + Math.random())):*/ null,
       xPull: null,

@@ -6,7 +6,7 @@ export class Creature {
     this._yPullChange = yPullChange || this.getRandom(-0.5, 0.5, 10);
     this._parent = parent;
     this._age = 0;
-    this._speed = speed || this.getRandom(0.0005 * gridMax, 0.01 * gridMax, 10);
+    this._speed = speed || this.getRandom(0.0005 * gridMax, 0.05 * gridMax, 10);
     this._xPull = xPull || this.getRandom(-1, 1, 2);
     this._yPull = yPull || this.getRandom(-1, 1, 2);
     this._xPos = xPos || this.getRandom(gridMin, gridMax, 0);

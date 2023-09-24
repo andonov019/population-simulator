@@ -6,7 +6,7 @@ const canvasSize = 600;
 const gridSize = 50;
 const maxAge = 2000;
 const maxPopulation = 500;
-const initialPopulation = 90;
+const initialPopulation = 100;
 const reproductionTimer = 10;
 const timer = (ms) => new Promise((res) => setTimeout(res, ms));
 
