@@ -1,18 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Population Simulator</title>
-    <link rel="stylesheet" type="text/css" href="./css/style.css" />
-  </head>
-  <body>
+    <link rel="stylesheet" type="text/css" href="./css/style.css"/>
+</head>
+<body>
+<div id="leftbox" align="center" style="margin-top: 50px; margin-left: 50px">
+
+  <form id="popConf">
+    <span style="color:blue;font-weight:bold;">World settings</span><br><br>
+    Canvas Size: <input type="number" id="canvasSize" value="600"><br>
+    Grid Size: <input type="number" id="gridSize" value="100"><br>
+    Rounds: <input type="number" id="roundRepeat" value="2000"><br><br><br>
+
+    <span style="color:blue;font-weight:bold;">Creature Settings</span><br><br>
+    Creature Max Age: <input type="number" id="maxAge" value="2000"><br>
+    Reproductive Cycle: <input type="number" id="reproductionTimer" value="10"><br><br><br>
+
+    <span style="color:blue;font-weight:bold;">Population settings</span><br><br>
+    Initial Population: <input type="number" id="initialPopulation" value="100"><br>
+    Max Population: <input type="number" id="maxPopulation" value="500"><br><br><br>
+
+      <button id="startButton">Restart Population</button>
+  </form>
+
+</div>
+<div id="middlebox" align="center">
     <h1>Population Simulator</h1>
     <canvas id="grid-container">
     </canvas>
-  <div>Current Population: <span id="currentPopulationText">0</span></div>
-    <div>Total Population: <span id="totalPopulationText">0</span></div>
+</div>
 
-  </body>
-  <script type="module" src="./index.js"></script>
+    <div id="rightbox">
+        <div>Current Population: <span id="currentPopulationText">0</span></div>
+        <div>Total Population: <span id="totalPopulationText">0</span></div>
+    </div>
+
+</body>
+<script type="module" src="./index.js"></script>
 </html>

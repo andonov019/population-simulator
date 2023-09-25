@@ -77,6 +77,8 @@ export class Population {
 
   // populate our Creatures
   populate(populationNumber) {
+    this._creatures.clear();
+    this._markedList.clear();
     for (let i = 0; i < populationNumber; i++) {
       this.addCreature({});
     }

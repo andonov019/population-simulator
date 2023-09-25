@@ -3,13 +3,8 @@
 }
 
 #grid-container {
-  display: grid;
-  grid-template-rows: repeat(10, 1fr);
-  grid-template-columns: repeat(10, 1fr);
   border: 1px solid #a6a6a6;
   height: 100%;
-  aspect-ratio: 1;
-  gap: 1px;
   cursor: default;
 }
 
@@ -21,4 +16,20 @@
 
 .creature-style {
   background-color: #ffd80c;
+}
+
+#leftbox {
+  float:left;
+  width:10%;
+  height:100vh;
+}
+#middlebox{
+  float:left;
+  width:70%;
+  height:80vh;
+}
+#rightbox{
+  float:right;
+  width:20%;
+  height:100vh;
 }
